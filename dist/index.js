@@ -33367,9 +33367,10 @@ async function run() {
                 "inline": true
             });
         }
+        const ref = github_1.context.payload.ref.toString();
         fields.push({
-            "name": "Build Branch",
-            "value": github_1.context.payload.ref.toString().replace("refs/heads/", ""),
+            "name": ref.startsWith("refs/tags/") ? "Build Tag" : "Build Branch",
+            "value": ref.replace("refs/heads/", "").replace("refs/tags/", ""),
             "inline": true
         });
         const includeCommitInfo = (0, core_1.getInput)('include_commit_message') == '' || (0, core_1.getInput)('include_commit_message') == 'true';

@@ -41,9 +41,11 @@ export async function run(): Promise<any> {
             });
         }
 
+        const ref = context.payload.ref!!.toString();
+
         fields.push({
-            "name": "Build Branch",
-            "value": context.payload.ref!!.toString().replace("refs/heads/", ""),
+            "name": ref.startsWith("refs/tags/") ? "Build Tag" : "Build Branch",
+            "value": ref.replace("refs/heads/", "").replace("refs/tags/", ""),
             "inline": true
         })
         const includeCommitInfo = getInput('include_commit_message') == '' || getInput('include_commit_message') == 'true'
